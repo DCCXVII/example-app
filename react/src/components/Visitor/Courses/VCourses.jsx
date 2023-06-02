@@ -1,41 +1,43 @@
-import course1 from "../../../assets/course1.jpg";
-import course4 from "../../../assets/course4.jpg";
-
+import React, { useEffect, useState } from "react";
 import GreyCover from "../../GreyCover/GreyCover";
 import Video from "../../videos/Video";
+import { MdOutlineSignalCellularAlt1Bar, MdOutlineSignalCellularAlt2Bar } from "react-icons/all";
 import "./VCourses.css";
-import {
-  MdOutlineSignalCellularAlt1Bar,
-  MdOutlineSignalCellularAlt,
-  MdOutlineSignalCellularAlt2Bar,
-} from "react-icons/all";
+import { fetchCourses } from "../../api/api";
+import { useLocation } from "react-router-dom";
+
 const VCourses = () => {
-  const classesData = [
-    {
-      image: course4,
-      yogaType: "Vinyasa",
-      yogaDuration: "30:00",
-      yogaLevel: "Intermediate",
-      videoTitle: "Title of the video",
-      videoPlaylist: "The playlist of the video",
-      videoInstructor: "Elyass Hafidi",
-      icon: <MdOutlineSignalCellularAlt2Bar />,
-      VideoViewsNumber: 533,
-      VideoClientNumber: 334,
-    },
-    {
-      image: course1,
-      yogaType: "Vinyasa",
-      yogaDuration: "30:00",
-      yogaLevel: "Beginner",
-      videoTitle: "Title of the video",
-      videoPlaylist: "The playlist of the video",
-      videoInstructor: "Elyass Hafidi",
-      icon: <MdOutlineSignalCellularAlt1Bar />,
-      VideoViewsNumber: 533,
-      VideoClientNumber: 334,
-    },
-  ];
+  const [classesData, setClassesData] = useState([]);
+  const location = useLocation();
+  const disciplineId = new URLSearchParams(location.search).get("discipline_id");
+
+  useEffect(() => {
+    fetchCourses({ discipline_id: disciplineId })
+      .then((courses) => {
+        const newData = courses.map((course) => ({
+          image: course.background_image,
+          yogaType: course.discipline_id,
+          yogaDuration: course.duration,
+          yogaLevel: course.niveau,
+          videoTitle: course.titre,
+          videoPlaylist: course.classe_id, // You can replace this with actual playlist data if available
+          videoInstructor: course.instructor_id,
+          icon:
+            course.niveau === "Débutant" ? (
+              <MdOutlineSignalCellularAlt1Bar />
+            ) : (
+              <MdOutlineSignalCellularAlt2Bar />
+            ),
+          VideoViewsNumber: course.views_number,
+          VideoClientNumber: course.sells_number,
+        }));
+        setClassesData(newData);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch courses:", error);
+      });
+  }, [disciplineId]);
+
   return (
     <>
       <GreyCover

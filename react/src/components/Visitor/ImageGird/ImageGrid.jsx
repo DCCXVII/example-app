@@ -1,42 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ImageGrid.css";
+import { fetchDisciplines } from "../../api/api";
+import { Link } from "react-router-dom";
 
 const ImageGrid = () => {
-  const images = [
-    {
-      url:
-        "https://dplvxv40qur9n.cloudfront.net/0fa76adf-b3de-4d62-9aca-ad8fee622042.jpg",
-        title: "Dance Flow",
+  const [disciplines, setDisciplines] = useState([]);
 
-    },
-    {
-      url:
-        "https://dplvxv40qur9n.cloudfront.net/0fa76adf-b3de-4d62-9aca-ad8fee622042.jpg",
+  useEffect(() => {
+    const fetchDisciplinesData = async () => {
+      try {
+        const data = await fetchDisciplines();
+        setDisciplines(data.discipline);
+      } catch (error) {
+        console.error("Failed to fetch disciplines:", error);
+      }
+    };
 
-        title: "Mindful",
-    },
-    {
-      url:"https://dplvxv40qur9n.cloudfront.net/0fa76adf-b3de-4d62-9aca-ad8fee622042.jpg",
-      title: "Yoga therapie"
-    },
-    {
-      url:
-        "https://dplvxv40qur9n.cloudfront.net/0fa76adf-b3de-4d62-9aca-ad8fee622042.jpg",
-      title: "Yoga"
-    }
-  ];
+    fetchDisciplinesData();
+  }, []);
 
   return (
     <div className="image-grid-container">
-    <h2 className="image-grid-titre">Take a Step</h2>
-    <div className="image-grid">
-      {images.map((image, index) => (
-        <div key={index} className="image-item">
-          <img src={image.url} alt={image.title} />
-          <div className="image-title">{image.title}</div>
-        </div>
-      ))}
-    </div>
+      <h2 className="image-grid-titre">Take a Step</h2>
+      <div className="image-grid">
+        {disciplines.map((discipline) => (
+          <div key={discipline.id} className="image-item">
+            <Link to={`/user/courses?discipline_id=${discipline.id}`}>
+              <img src={discipline.background_img} alt={discipline.titre} />
+              <div className="image-title">{discipline.titre}</div>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -81,6 +81,18 @@ export const Logout = async () => {
   }
 };
 
+
+export const fetchDisciplines = async () => {
+  try {
+    const response = await api.get("/discipline");
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch disciplines:", error);
+    throw error;
+  }
+};
+
+
 export const fetchDashboardData = async () => {
   try {
     const response = await api.get("/admin/dashbord");
@@ -290,4 +302,31 @@ export const fetchCoursesByDiscipline = async (disciplineId) => {
     throw error;
   }
 };
+
+export const fetchCourses = async (filters) => {
+  try {
+    const response = await api.get("/explore", { params: filters });
+    return response.data.courses;
+  } catch (error) {
+    console.error("Failed to fetch courses:", error);
+    throw error;
+  }
+};
+
+
+export const fetchClassesByDiscipline = async (disciplineId) => {
+  try {
+    const response = await api.get(`/discipline/${disciplineId}`);
+    return response.data.classes;
+  } catch (error) {
+    console.error("Failed to fetch classes by discipline:", error);
+    throw error;
+  }
+};
+
+export const fetchInstructors = async () => {
+  const response = await api.get("/instructors");
+  return response.data.instructors;
+};
+
 export default api;

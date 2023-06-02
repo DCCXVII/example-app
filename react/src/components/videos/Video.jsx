@@ -58,20 +58,20 @@ function Video({
               </div>
             </li>
             <li>
-              <a href="" className="video-title">
+              <Link to="" className="video-title">
                 {videoTitle}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="" className="video-playlist">
+              <Link to="" className="video-playlist">
                 {videoPlaylist}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="" className="video-instructor">
+              <Link to="" className="video-instructor">
                 {videoInstructor}{" "}
                 <VerifiedIcon size={14} className="icon-verifier" />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

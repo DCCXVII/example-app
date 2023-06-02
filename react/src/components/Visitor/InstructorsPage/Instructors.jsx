@@ -5,15 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Instructors.css";
 import GreyCover from "../../GreyCover/GreyCover";
 import { token } from "../../api/api";
-
+import {fetchInstructors} from "../../api/api";
 function Instructors() {
   const navigate = useNavigate();
-
-  const fetchInstructors = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/instructors");
-    console.log(response.data.instructors);
-    return response.data.instructors;
-  };
 
   const {
     data: instructors,

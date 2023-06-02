@@ -4,7 +4,7 @@ import { ChevronRightIcon } from "@primer/octicons-react";
 import emptyimage from "../../../../../assets/emptyimage.jpg";
 import { editCourse, fetchCourseData } from "../../../../api/api";
 
-const EditCourse = () => {
+const CreatePackForm = () => {
   const { courseId } = useParams(); // Retrieve the course ID from the URL
   const [courseData, setCourseData] = useState(null);
   const [courseTitle, setCourseTitle] = useState("");
