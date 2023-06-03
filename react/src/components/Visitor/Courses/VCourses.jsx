@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import GreyCover from "../../GreyCover/GreyCover";
 import Video from "../../videos/Video";
-import { MdOutlineSignalCellularAlt1Bar, MdOutlineSignalCellularAlt2Bar } from "react-icons/all";
+import {
+  MdOutlineSignalCellularAlt1Bar,
+  MdOutlineSignalCellularAlt2Bar,
+} from "react-icons/all";
 import "./VCourses.css";
 import { fetchCourses } from "../../api/api";
 import { useLocation } from "react-router-dom";
 
 const VCourses = () => {
-  const [classesData, setClassesData] = useState([]);
+  const [coursesData, setCoursesData] = useState([]);
   const location = useLocation();
   const disciplineId = new URLSearchParams(location.search).get("discipline_id");
 
@@ -15,6 +18,7 @@ const VCourses = () => {
     fetchCourses({ discipline_id: disciplineId })
       .then((courses) => {
         const newData = courses.map((course) => ({
+          id: course.id,
           image: course.background_image,
           yogaType: course.discipline_id,
           yogaDuration: course.duration,
@@ -31,7 +35,7 @@ const VCourses = () => {
           VideoViewsNumber: course.views_number,
           VideoClientNumber: course.sells_number,
         }));
-        setClassesData(newData);
+        setCoursesData(newData);
       })
       .catch((error) => {
         console.error("Failed to fetch courses:", error);
@@ -46,19 +50,20 @@ const VCourses = () => {
       />
       <div className="big-container-classes">
         <div className="classes-card-grid">
-          {classesData.map((video, index) => (
+          {coursesData.map((course, index) => (
             <Video
               key={index}
-              image={video.image}
-              yogaType={video.yogaType}
-              yogaDuration={video.yogaDuration}
-              yogaLevel={video.yogaLevel}
-              videoTitle={video.videoTitle}
-              videoPlaylist={video.videoPlaylist}
-              videoInstructor={video.videoInstructor}
-              icon={video.icon}
-              VideoClientNumber={video.VideoClientNumber}
-              VideoViewsNumber={video.VideoViewsNumber}
+              id={course.id}
+              image={course.image}
+              yogaType={course.yogaType}
+              yogaDuration={course.yogaDuration}
+              yogaLevel={course.yogaLevel}
+              videoTitle={course.videoTitle}
+              videoPlaylist={course.videoPlaylist}
+              videoInstructor={course.videoInstructor}
+              icon={course.icon}
+              VideoClientNumber={course.VideoClientNumber}
+              VideoViewsNumber={course.VideoViewsNumber}
             />
           ))}
         </div>

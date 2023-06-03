@@ -10,11 +10,11 @@ const Pack = ({
   image,
   yogaType,
   videoInstructor,
-  cpVideoDescription,
+  packVideoDescription,
   videoTitle,
-  cpFeedsViewsNumber,
-  cpFeedsClientNumber,
-  cpPackLevel,
+  packFeedsViewsNumber,
+  packFeedsClientNumber,
+  packPackLevel,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -24,56 +24,56 @@ const Pack = ({
 
   return (
     <>
-      <div className="cp-thumb-container">
-        <div className="cp-thumbnail-section">
-          <a href="" className="cp-yoga-thumbnail">
-            <div className="cp-thumbnail-image">
+      <div className="pack-thumb-container">
+        <div className="pack-thumbnail-section">
+          <a href="" className="pack-yoga-thumbnail">
+            <div className="pack-thumbnail-image">
               <img src={image} alt="" />
-              <div className="cp-yoga-details">
-                <div className="cp-yoga-type">{yogaType}</div>
+              <div className="pack-yoga-details">
+                <div className="pack-yoga-type">{yogaType}</div>
               </div>
             </div>
           </a>
         </div>
-        <div className="cp-video-info">
+        <div className="pack-video-info">
           <ul>
             <li>
-              <a href="" className="cp-video-title">
+              <a href="" className="pack-video-title">
                 {videoTitle}
               </a>
             </li>
             <li>
-              <a href="" className="cp-video-instructor">
+              <a href="" className="pack-video-instructor">
                 {videoInstructor}{" "}
                 <VerifiedIcon size={12} className="icon-verifier" />
               </a>
             </li>
             <li>
-              <div className="cp-feeds">
+              <div className="pack-feeds">
                 <div className="first-line">
                   <div id="videos-number">
                     <PlayIcon size={15} className="icon-feed" />{" "}
-                    {cpFeedsViewsNumber}
+                    {packFeedsViewsNumber}
                   </div>
 
                   <div id="pack-level">
-                    <TrophyIcon size={16} className="icon-feed" /> {cpPackLevel}
+                    <TrophyIcon size={16} className="icon-feed" /> {packPackLevel}
                   </div>
                   <div id="client-numer">
                     <PeopleIcon size={17} className="icon-feed" />{" "}
-                    {cpFeedsClientNumber}
+                    {packFeedsClientNumber}
                   </div>
                 </div>
               </div>
             </li>
             <hr className="divisor-hr"/>
             <li>
-              <div className="cp-video-description">
+              <div className="pack-video-description">
                 {expanded
-                  ? cpVideoDescription
-                  : `${cpVideoDescription.slice(0, 100)}...`}
+                  ? packVideoDescription
+                  : `${packVideoDescription.slice(0, 100)}...`}
                 <div
-                  className={expanded ? "cp-overlay hidden" : "cp-overlay"}
+                  className={expanded ? "pack-overlay hidden" : "pack-overlay"}
                 ></div>
               </div>
               <button className="read-more-less" onClick={toggleExpanded}>

@@ -9,6 +9,7 @@ import {
   ProjectIcon,
   CalendarIcon,
   FileDirectoryIcon,
+  DeviceCameraVideoIcon 
 } from "@primer/octicons-react";
 
 function InstructorLayout() {
@@ -57,6 +58,11 @@ function InstructorLayout() {
       link: "/instructor/dashboard/packs",
       icon: <FileDirectoryIcon size={18} className="new-icon" />,
       name: "les Packs",
+    },
+    {
+      link: "/instructor/dashboard/create-live",
+      icon: <DeviceCameraVideoIcon  size={18} className="new-icon" />,
+      name: "Live",
     },
     {
       link: "/instructor",

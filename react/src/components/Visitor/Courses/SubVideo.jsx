@@ -1,26 +1,46 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { LockIcon, ZapIcon, GlobeIcon, ClockIcon } from "@primer/octicons-react";
+import { useParams } from "react-router-dom";
+import { fetchCourseDataById } from "../../api/api";
 import "./SubVideo.css";
-
 import pr1 from "../../../assets/pr1.jpg";
-import course1 from "../../../assets/course1.jpg"; 
-import {
-  LockIcon,
-  ZapIcon,
-  GlobeIcon,
-  ClockIcon,
-} from "@primer/octicons-react";
 
 const SubVideo = () => {
+  const [courseData, setCourseData] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchCourseDataById(id);
+        setCourseData(data.courses[0]);
+      } catch (error) {
+        console.error("Failed to fetch course data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (!courseData) {
+    return null; // Display a loading state or placeholder while fetching data
+  }
+
+  const {
+    titre,
+    description,
+    background_image,
+    duration,
+    niveau,
+    instructor_name,
+    language,
+  } = courseData;
+
   return (
     <>
       <div className="Sub-video-container">
         <div className="Sub-video-background-image">
-          <img
-            // src="https://d28gwrkukqy4h7.cloudfront.net/users/user-banner-default.png"
-            src={course1}
-            className="background-image-img"
-          />
+          <img src={background_image} className="background-image-img" />
 
           <div className="bg-overlay"></div>
 
@@ -31,33 +51,23 @@ const SubVideo = () => {
             <h1>POUR DÉBLOQUEZ CETTE CLASSE</h1>
             <a href="">Commencez votre essai gratuit aujourd'hui</a>
           </div>
-
-          {/* ---------VIDEO---------------------- */}
-          {/* <video src={video1} className="Subbed-video" controls>
-            Your browser does not support the video tag.
-          </video> */}
         </div>
         <div className="Sub-video-cours-video-info">
           <div className="Sub-video-course-title">
-            <h1>yoga pour les debutants ( titre du video )</h1>
+            <h1>{titre}</h1>
           </div>
           <div className="Sub-video-descrip-cours">
-            <p className="Sub-video-descrip-cours-paragraph">
-              Vous avez des douleurs lombaires ? Ouvrez de l'espace dans cette
-              zone en relâchant votre colonne vertébrale, vos hanches et vos
-              ischio-jambiers dans ce cours de Hatha Yoga de 20 minutes. Vous
-              créerez de la stabilité et soulagerez la pression dans le bas du
-              dos avec des mouvements comme Triangle Pose, Pigeon Pose et de
-              nombreux plis vers l'avant.
-            </p>
+            <p className="Sub-video-descrip-cours-paragraph">{description}</p>
           </div>
           <div className="cours-video-instru-info">
             <a href="">
               <img src={pr1} alt="" />
-              <h2 className="video-instru-name">Tasha Rodriguez</h2>
+              <h2 className="video-instru-name">{instructor_name}</h2>
             </a>
             <p className="video-instru-specia">Yoga Instructeur</p>
-            <button className="consultation3-btn3">Prendre consultation</button>
+            <button className="consultation3-btn3">
+              Prendre consultation
+            </button>
           </div>
         </div>
         <div className="apercu-video-page">
@@ -73,7 +83,7 @@ const SubVideo = () => {
                 </td>
                 <td>
                   <ZapIcon size={23} className="apercu-video-page-icon" />{" "}
-                  Niveau
+                  {niveau}
                 </td>
                 <td>
                   <GlobeIcon size={23} className="apercu-video-page-icon" />{" "}
@@ -83,15 +93,14 @@ const SubVideo = () => {
             </thead>
             <tbody>
               <tr>
-                <td className="apercu-video-page-details">10min 22sec</td>
-                <td className="apercu-video-page-details">Débutant</td>
-                <td className="apercu-video-page-details">Français</td>
+                <td className="apercu-video-page-details">{duration}</td>
+                <td className="apercu-video-page-details">{niveau}</td>
+                <td className="apercu-video-page-details">{language}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      
     </>
   );
 };

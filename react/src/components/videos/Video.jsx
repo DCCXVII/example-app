@@ -5,9 +5,11 @@ import {
   PlayIcon,
 } from "@primer/octicons-react";
 import "./Video.css";
-import {BsPeople,BsEye} from "react-icons/bs";
+import { BsPeople, BsEye } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Video({
+  id, // Add id prop here
   image,
   yogaType,
   yogaDuration,
@@ -17,13 +19,13 @@ function Video({
   videoInstructor,
   icon,
   VideoViewsNumber,
-  VideoClientNumber
+  VideoClientNumber,
 }) {
   return (
     <>
       <div className="thumb-container">
         <div className="thumbnail-section">
-          <a href="" className="yoga-thumbnail">
+        <Link to={`/user/courses/${id}`} >
             <div className="thumbnail-image">
               <img src={image} alt="" />
               <div className="play-icon">
@@ -39,7 +41,7 @@ function Video({
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
         </div>
         <div className="video-info">
           <ul>
@@ -47,8 +49,7 @@ function Video({
               <div className="video-feeds">
                 <div className="first-line">
                   <div id="views-number">
-                    <BsEye size={15} className="icon-feed" />{" "}
-                    {VideoViewsNumber}
+                    <BsEye size={15} className="icon-feed" /> {VideoViewsNumber}
                   </div>
                   <div id="client-numer">
                     <BsPeople size={17} className="icon-feed" />{" "}
@@ -58,9 +59,9 @@ function Video({
               </div>
             </li>
             <li>
-              <Link to="" className="video-title">
+              <Link to={`/user/courses/${id}`} className="video-title">
                 {videoTitle}
-              </Link>
+            </Link>
             </li>
             <li>
               <Link to="" className="video-playlist">

@@ -216,6 +216,19 @@ export const fetchCourseData = async (id) => {
   }
 };
 
+
+export const fetchCourseDataById = async (id) => {
+  try {
+    const response = await api.get(`/explore/?id=${id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch course data:", error);
+    throw error;
+  }
+};
+
+
 export const fetchInstructorProfileData = async () => {
   try {
     const response = await api.get("/profile");
@@ -252,25 +265,6 @@ export const changePassword = async (currentPassword, newPassword) => {
       console.error("Password change failed:", error);
       throw new Error("Failed to change password");
     }
-  }
-};
-
-export const changeProfileImage = async (imageFile) => {
-  try {
-    const formData = new FormData();
-    formData.append("profile_image", imageFile);
-
-    const response = await api.put("/edit-profile", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Failed to change profile image:", error);
-    throw error;
   }
 };
 
@@ -313,6 +307,18 @@ export const fetchCourses = async (filters) => {
   }
 };
 
+export const fetchPacks = async () => {
+  try {
+    const response = await api.get("/packs");
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch packs:", error);
+    throw error;
+  }
+};
+
+
 
 export const fetchClassesByDiscipline = async (disciplineId) => {
   try {
@@ -327,6 +333,26 @@ export const fetchClassesByDiscipline = async (disciplineId) => {
 export const fetchInstructors = async () => {
   const response = await api.get("/instructors");
   return response.data.instructors;
+};
+
+
+export const changeProfileImage = async (imageFile) => {
+  try {
+    const formData = new FormData();
+    formData.append("profile_image", imageFile);
+
+    const response = await api.put("/edit-profile", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to change profile image:", error);
+    throw error;
+  }
 };
 
 export default api;

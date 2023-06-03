@@ -26,6 +26,8 @@ import PricingCard from "./components/Visitor/Pricing/PricingCards";
 import DefaultPage from "./pages/DefaultPage";
 import ChangePassword from "./components/instructor/dashboard/main/profile/ChangePassword";
 import EditCourse from "./components/instructor/dashboard/main/courses/EditCourse";
+import SubVideo from "./components/Visitor/Courses/SubVideo";
+import Live from "./components/instructor/dashboard/main/Lives/Live";
 
 const router = createBrowserRouter([
   {
@@ -113,6 +115,10 @@ const router = createBrowserRouter([
             path: "/instructor/dashboard/packs/create",
             element: <CreatePackForm />,
           },
+          {
+            path: "/instructor/dashboard/create-live",
+            element: <Live />,
+          },
         ],
       },
       {
@@ -152,6 +158,11 @@ const router = createBrowserRouter([
       {
         path: "/user/instructors/:id",
         element: <InstructorProfile />,
+      },
+    
+      {
+        path: "/user/courses/:id",
+        element: <SubVideo />,
       },
     ],
   },

@@ -30,6 +30,11 @@ function InstructorPage() {
       url: "/instructor/dashboard/courses/:id/edit",
       isActive: location.pathname == "//instructor/dashboard/courses/:id/edit",
     },
+    {
+      label: "Create a Live",
+      url: "/instructor/dashboard/create-live",
+      isActive: location.pathname == "/instructor/dashboard/create-live",
+    },
   ];
 
   return (
