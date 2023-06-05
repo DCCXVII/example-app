@@ -8,7 +8,7 @@ const Live = () => {
   const [call, setCall] = useState(false);
   const [password, setPassword] = useState("");
 
-  const handleClick = (event) => {
+  const handleClick = (event) => { 
     event.preventDefault();
     if (room && name) setCall(true);
   };

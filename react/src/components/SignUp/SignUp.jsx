@@ -92,7 +92,7 @@ const SignUp = () => {
   
       // Display success message or redirect to another page
       setSignupStatus("success");
-      navigate("/signup/pricing"); // Redirect to the desired page after successful signup
+      navigate("user/pricing"); // Redirect to the desired page after successful signup
     } catch (error) {
       // Display error message or handle the error
       setSignupStatus("error");

@@ -87,7 +87,7 @@ function Navbar({ items, profile, Navlink, explore }) {
               <ul className="dropdown d2">
                 {profile.map((profile, index) => (
                   <li key={index}>
-                    <Link to="/instructor/profile">
+                    <Link to={profile.link}>
                       <div className="user-info">
                         <img src={profile.image} alt={profile.Username} />
                         <div className="info">

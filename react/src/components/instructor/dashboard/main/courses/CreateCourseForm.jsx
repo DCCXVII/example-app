@@ -220,7 +220,7 @@ const CreateCourseForm = () => {
                   </div>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-form">
                   <div className="form-group">
                     <label className="form-label">Short Description</label>
                     <textarea

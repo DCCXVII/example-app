@@ -11,11 +11,12 @@ function Dashboard() {
     { icon: BsFillCartFill, number: '54578$', title: 'Total Sale' },
     { icon: RiLiveFill, number: '55', title: 'Course Live' },
     { icon: MdFeedback, number: '2', title: 'Reclamation' },
-    { icon: MdFeedback, number: '2', title: 'Reclamation' },
-    { icon: MdFeedback, number: '2', title: 'Reclamation' },
+
   ];
 
   return (
+    <>
+          <div className='titre'><h1 >Dashboard panel</h1></div>
     <div className="dashboard-container">
       {cards.map((card, index) => (
         <div className="card" key={index}>
@@ -27,6 +28,7 @@ function Dashboard() {
         </div>
       ))}
     </div>
+    </>
   );
 }
 

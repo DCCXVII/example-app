@@ -40,6 +40,7 @@ function InstructorLayout() {
       Username: userData.name,
       email: userData.email,
       image: userData.image,
+      link: "/instructor/profile"
     },
   ];
 

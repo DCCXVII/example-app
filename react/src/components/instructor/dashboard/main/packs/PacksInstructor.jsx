@@ -28,7 +28,7 @@ function PacksInstructor() {
           {data.map((pack) => (
             <CardPack
             key={pack.id}
-              image={pack["background-image"]} // Replace with the appropriate field from the pack object
+              image={pack.background_image} // Replace with the appropriate field from the pack object
               yogaType={pack.titre}
               yogaLevel={pack.niveau}
               videoTitle={pack.titre}

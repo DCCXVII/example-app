@@ -1,31 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { ChevronRightIcon } from "@primer/octicons-react";
+import "../courses/CreateCoursePack.css";
+import { ChevronDownIcon, ChevronRightIcon,XCircleFillIcon, CheckCircleFillIcon } from "@primer/octicons-react";
 import emptyimage from "../../../../../assets/emptyimage.jpg";
-import { editCourse, fetchCourseData } from "../../../../api/api";
+import VideoSelector from "../../../../videos/VideoSelector";
+import React, { useState, useEffect } from "react";
+import { fetchCoursesByDiscipline } from "../../../../api/api"; // Import the fetchCoursesByDiscipline function from your API module
+import { createPack } from "../../../../api/api"; // Replace "<path_to_createPack_function>" with the actual path to the file containing the createPack function
 
 const CreatePackForm = () => {
-  const { courseId } = useParams(); // Retrieve the course ID from the URL
-  const [courseData, setCourseData] = useState(null);
-  const [courseTitle, setCourseTitle] = useState("");
-  const [courseDiscipline, setCourseDiscipline] = useState("");
-  const [typeClass, setTypeClass] = useState("");
-  const [level, setLevel] = useState("");
-  const [latestPrice, setLatestPrice] = useState(0);
-  const [shortDescription, setShortDescription] = useState("");
-  const [thumbnailImage, setThumbnailImage] = useState(null);
-  const [videoFile, setVideoFile] = useState(null);
+  const [showVideoPage, setShowVideoPage] = useState(false);
+  const [selectedVideos, setSelectedVideos] = useState([]);
+  const [titre, setCourseTitle] = useState("");
+  const [disciplineId, setCourseDiscipline] = useState(null); // Renamed to disciplineId for clarity
+  const [niveau, setLevel] = useState("");
+  const [price, setLatestPrice] = useState("");
+  const [description, setShortDescription] = useState("");
+  const [background_image, setBackgroundImage] = useState(null);
+  // const [teaser, setTeaser] = useState(null);
+  const [videoData, setVideoData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleCourseTitleChange = (event) => {
     setCourseTitle(event.target.value);
   };
 
-  const handleCourseDisciplineChange = (event) => {
-    setCourseDiscipline(event.target.value);
-  };
-
-  const handleTypeClassChange = (event) => {
-    setTypeClass(event.target.value);
+  const handlePackDisciplineChange = (event) => {
+    const selectedValue = parseInt(event.target.value, 10);
+    setCourseDiscipline(selectedValue);
   };
 
   const handleLevelChange = (event) => {
@@ -40,95 +43,125 @@ const CreatePackForm = () => {
     setShortDescription(event.target.value);
   };
 
-  const handleThumbnailImageChange = (event) => {
+  const handleBackgroundChange = (event) => {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      setThumbnailImage(URL.createObjectURL(file));
-    } else {
-      setThumbnailImage(null);
+      setBackgroundImage(file);
     }
   };
 
-  const handleVideoFileChange = (event) => {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      setVideoFile(file);
+
+
+  const handleButtonClick = () => {
+    setShowVideoPage(!showVideoPage);
+  };
+
+  const handleVideoSelection = (video) => {
+    const isSelected = selectedVideos.some(
+      (selectedVideo) => selectedVideo.id === video.id
+    );
+
+    if (isSelected) {
+      setSelectedVideos((prevSelectedVideos) =>
+        prevSelectedVideos.filter(
+          (selectedVideo) => selectedVideo.id !== video.id
+        )
+      );
     } else {
-      setVideoFile(null);
+      setSelectedVideos((prevSelectedVideos) => [...prevSelectedVideos, video]);
     }
   };
+
+  // console.log("Selected Videos:", selectedVideos.length);
 
   useEffect(() => {
-    fetchCourseData(courseId)
-      .then((data) => {
-        setCourseData(data);
-        // Set the existing course data to the corresponding state variables
-        setCourseTitle(data.titre);
-        setCourseDiscipline(data.discipline_id);
-        setTypeClass(data.classe_id);
-        setLevel(data.niveau);
-        setLatestPrice(data.price);
-        setShortDescription(data.description);
-        setThumbnailImage(data.background_image);
-        // Assuming you have a separate field for video file, you can set it here as well
-      })
-      .catch((error) => {
-        console.error("Failed to fetch course data:", error);
-      });
-  }, [courseId]);
+    const fetchVideoData = async () => {
+      if (disciplineId) {
+        try {
+          const courses = await fetchCoursesByDiscipline(disciplineId);
+          setVideoData(
+            courses.map((course) => ({
+              id: course.id,
+              image: course.background_image,
+              yogaType: course.discipline_name,
+              yogaDuration: course.duration,
+              yogaLevel: course.niveau,
+              videoTitle: course.titre,
+            }))
+          );
+        } catch (error) {
+          console.error("Failed to fetch video data:", error);
+        }
+      }
+    };
+
+    fetchVideoData();
+  }, [disciplineId]);
+
+  // Sample video data for the map
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const updatedCourseData = {
-      titre: courseTitle,
-      discipline_id: courseDiscipline,
-      classe_id: typeClass,
-      niveau: level,
-      price: parseFloat(latestPrice),
-      description: shortDescription,
-      background_image: thumbnailImage,
-      video: videoFile,
+  
+    const packData = {
+      titre: titre,
+      discipline_id: disciplineId,
+      niveau: niveau,
+      price: parseFloat(price),
+      description: description,
+      background_image: background_image instanceof File ? background_image : null,
+      courses: selectedVideos.map((video) => video.id),
     };
+  
+    try {
+      const response = await createPack(packData);
+      setSuccessMessage("Pack created successfully");
+      setShowSuccessMessage(true);
 
-    editCourse(courseId, updatedCourseData)
-      .then((data) => {
-        console.log("Course updated successfully:", data);
-        // Handle any success messages or navigate to another page
-      })
-      .catch((error) => {
-        console.error("Failed to edit course:", error);
-        // Handle the error or display an error message to the user
-      });
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+    } catch (error) {
+      setErrorMessageMessage("Course created successfully");
+      setShowErrorMessage(true);
+
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 3000);
+    }
   };
+  
 
   return (
     <>
-      <div className="create-course-container">
+      <div className="create-pack-container">
         <div className="container">
-          <div className="create-course-form">
+          <div className="create-pack-form">
             <form onSubmit={handleSubmit}>
               <div className="row">
+                {/* Pack Title */}
                 <div className="col-form">
                   <div className="form-group">
-                    <label className="form-label">Course Title</label>
+                    <label className="form-label">Pack Title</label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Course Title"
-                      value={courseTitle}
+                      placeholder="Pack Title"
+                      name="titre"
+                      value={titre}
                       onChange={handleCourseTitleChange}
                     />
                   </div>
                 </div>
 
+                {/* Pack Discipline */}
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label className="form-label">Course Discipline</label>
+                    <label className="form-label">Pack Discipline</label>
                     <select
                       className="form-select"
-                      value={courseDiscipline}
-                      onChange={handleCourseDisciplineChange}
+                      value={disciplineId || ""}
+                      onChange={handlePackDisciplineChange}
                     >
                       <option value="">Select</option>
                       <option value={1}>Yoga</option>
@@ -138,73 +171,61 @@ const CreatePackForm = () => {
                   </div>
                 </div>
 
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label className="form-label">Type Class</label>
-                    <select
-                      className="form-select"
-                      value={typeClass}
-                      onChange={handleTypeClassChange}
-                    >
-                      <option value="">Select</option>
-                      <option value={1}>Vinyasa</option>
-                      <option value={2}>Yin</option>
-                      <option value={3}>Relaxation dynamique</option>
-                    </select>
-                  </div>
-                </div>
-
+                {/* Level */}
                 <div className="col-md-6">
                   <div className="form-group">
                     <label className="form-label">Level</label>
                     <select
                       className="form-select"
-                      value={level}
+                      value={niveau}
                       onChange={handleLevelChange}
                     >
                       <option value="">Select</option>
-                      <option value="Débutant">Débutant</option>
-                      <option value="Intermédiaire">Intermédiaire</option>
+                      <option value="débutant">Débutant</option>
+                      <option value="intermédiaire">Intermédiaire</option>
                       <option value="avancée">Avancée</option>
                     </select>
                   </div>
                 </div>
 
+                {/* Regular Price */}
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label className="form-label">Latest Price</label>
+                    <label className="form-label">Regular Price</label>
                     <input
                       type="number"
                       className="form-control"
-                      placeholder="29.99"
-                      aria-describedby="latest_price_help"
-                      value={latestPrice}
+                      placeholder="29.99 DH"
+                      aria-describedby="regular_price_help"
+                      name="regular_price"
+                      value={price}
                       onChange={handleLatestPriceChange}
                     />
-                    <div id="latest_price_help" className="form-text">
-                      The latest price will show as the course price.
+                    <div id="regular_price_help" className="form-text">
+                      The regular price will show as the course price.
                     </div>
                   </div>
                 </div>
 
+                {/* Image Loader */}
                 <div className="col-md-6">
                   <div className="form-group">
                     <label className="form-label">Thumbnail Image:</label>
                     <input
                       type="file"
                       className="form-control file-control"
-                      name="thumbnailImage"
+                      name="background_image"
                       accept="image/*"
-                      onChange={handleThumbnailImageChange}
+                      onChange={handleBackgroundChange}
                     />
-                    {thumbnailImage && (
+                    {background_image && (
                       <img
-                        src={thumbnailImage}
+                        src={background_image}
                         alt="thumbnail"
                         className="img-thumbnail w-100px me-2 mt-2"
                       />
                     )}
-                    {!thumbnailImage && (
+                    {!background_image && (
                       <img
                         src={emptyimage}
                         alt="image"
@@ -215,43 +236,89 @@ const CreatePackForm = () => {
                   </div>
                 </div>
 
+                {/* Description */}
                 <div className="col-md-6">
-                  <div className="form-group">
-                    <label className="form-label">Video File:</label>
-                    <input
-                      type="file"
-                      className="form-control file-control"
-                      name="videoFile"
-                      accept="video/*"
-                      onChange={handleVideoFileChange}
-                    />
-                    {videoFile && <div>Selected video: {videoFile.name}</div>}
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label className="form-label">Short Description</label>
-                    <textarea
-                      className="form-control"
-                      name="description"
-                      rows="6"
-                      value={shortDescription}
-                      onChange={handleShortDescriptionChange}
-                    ></textarea>
-                    <div className="form-text">
-                      The description will highlight all available areas.
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label className="form-label ">Short Description</label>
+                      <textarea
+                        className="form-control"
+                        name="short_desc"
+                        rows="6"
+                        placeholder="Short description"
+                        value={description}
+                        onChange={handleShortDescriptionChange}
+                      ></textarea>
+                      <div className="form-text">
+                        The description will highlight all available areas.
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="col-md-6">
-                  <div className="css-bbq5bh">
-                    <button type="submit" className="create-course-btn">
-                      <ChevronRightIcon size={20} /> Update Course <span></span>
-                    </button>
+                {/* Video Teaser */}
+                
+                {/* Classes / Courses */}
+                <div className="col-form">
+                  <div
+                    className="add-video-pack-btn"
+                    disabled={!disciplineId}
+                    onClick={handleButtonClick}
+                  >
+                    Classes / Courses
+                    {showVideoPage ? (
+                      <ChevronDownIcon
+                        size={18}
+                        className="add-video-pack-btn-icon"
+                      />
+                    ) : (
+                      <ChevronRightIcon
+                        size={18}
+                        className="add-video-pack-btn-icon"
+                      />
+                    )}
+                  </div>
+
+                  <div className="big-container">
+                    {showVideoPage && (
+                      <div className="selector-video-card-grid">
+                        {videoData.map((video) => (
+                          <VideoSelector
+                            key={video.id}
+                            image={video.image}
+                            yogaType={video.yogaType}
+                            yogaDuration={video.yogaDuration}
+                            yogaLevel={video.yogaLevel}
+                            videoTitle={video.videoTitle}
+                            onSelection={handleVideoSelection}
+                            isSelected={selectedVideos.some(
+                              (selectedVideo) => selectedVideo.id === video.id
+                            )}
+                            videoId={video.id}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
+              <div className="col-md-12">
+                  <button type="submit" className="create-pack-btn">
+                    Create Pack <ChevronRightIcon size={20} />
+                  </button>
+                </div>
+                {errorMessage && (
+                  <div className="error-message">
+                    <XCircleFillIcon className="message-icons" size={16} />
+                    {errorMessage}
+                  </div>
+                )}
+                {successMessage && (
+                  <div className="success-message">
+                    <CheckCircleFillIcon className="message-icons" size={16} />{" "}
+                    {successMessage}
+                  </div>
+                )}
             </form>
           </div>
         </div>

@@ -5,6 +5,7 @@ import SignIn from "../SignIn/SignIn";
 import Footer from "../Footer/Footer";
 import Slider from "../Visitor/Slider/Slider";
 import { Logout } from "../api/api";
+import { userData } from "../api/api";
 import {
   HomeIcon,
   PlayIcon,
@@ -28,10 +29,10 @@ function DefaultLayout() {
 
   const profile = [
     {
-      Username: "John Doe",
-      email: "user@mail.com",
-      image:
-        "https://res.cloudinary.com/dev-empty/image/upload/v1661230727/rquq94qv4bpuvf7xnxyh.jpg",
+      Username: userData.name,
+      email: userData.email,
+      image: userData.image,
+      link: "/user/profile"
     },
   ];
   const dropdownItems = [

@@ -73,10 +73,7 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Signupage />,
       },
-      {
-        path: "signup/pricing",
-        element: <PricingCard />,
-      },
+      
       {
         path: "/reset-password",
         element: <ForgetPasswordForm />,
@@ -144,6 +141,10 @@ const router = createBrowserRouter([
         element: <DefaultPage />,
       },
       {
+        path: "user/pricing",
+        element: <PricingCard />,
+      },
+      {
         path: "/user/courses",
         element: <VCourses />,
       },
@@ -163,7 +164,10 @@ const router = createBrowserRouter([
       {
         path: "/user/courses/:id",
         element: <SubVideo />,
-      },
+      },{
+        path: "/user/profile",
+        element: <ProfileEdit />,
+      }
     ],
   },
 ]);
