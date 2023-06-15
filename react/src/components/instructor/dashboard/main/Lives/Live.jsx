@@ -13,6 +13,10 @@ const Live = () => {
     if (room && name) setCall(true);
   };
 
+  const handleStartJoin = () => {
+    window.open(`https://meet.jit.si/${room}`, "_blank");
+  };
+
   return call ? (
     <Jutsu
       roomName={room}
@@ -62,7 +66,11 @@ const Live = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button className="create-course-btn"onClick={handleClick} type="submit">
+                <button
+                  className="create-course-btn"
+                  onClick={handleStartJoin}
+                  type="submit"
+                >
                   Start / Join
                 </button>
               </div>

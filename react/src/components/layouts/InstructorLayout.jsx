@@ -85,8 +85,8 @@ function InstructorLayout() {
         profile={profile}
         Navlink={Navlink}
         explore={Exploredata}
+        home="/instructeur"
       />
-      <div className="blank-div"></div>
       <Outlet key={location.pathname} location={location} />
     </>
   );

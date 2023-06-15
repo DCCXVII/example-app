@@ -5,7 +5,7 @@ import {
   VerifiedIcon,
   TrophyIcon,
 } from "@primer/octicons-react";
-import "./Pack.css";
+import "./style/Pack.css";
 const Pack = ({
   image,
   yogaType,
@@ -24,8 +24,8 @@ const Pack = ({
 
   return (
     <>
-      <div className="pack-thumb-container">
-        <div className="pack-thumbnail-section">
+      <div className="thumb-container">
+        <div className="thumbnail-section">
           <a href="" className="pack-yoga-thumbnail">
             <div className="pack-thumbnail-image">
               <img src={image} alt="" />

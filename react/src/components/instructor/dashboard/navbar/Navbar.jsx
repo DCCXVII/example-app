@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { Logout } from "../../../api/api";
 
-function Navbar({ items, profile, Navlink, explore }) {
+function Navbar({ items, profile, Navlink, explore,home }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -24,7 +24,7 @@ function Navbar({ items, profile, Navlink, explore }) {
       <nav className="navbar">
         <div className="navbar__left">
           <h2 className="logo-instructor">
-            <Link className="logo-instructor-link" to="/">
+            <Link className="logo-instructor-link" to={home}>
               Yougik
             </Link>
           </h2>

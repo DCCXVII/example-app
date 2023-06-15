@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ChangePassword.css";
+import "./style/ChangePassword.css";
 import { changePassword } from "../../../../api/api";
 import { useNavigate } from "react-router-dom";
 import { XCircleFillIcon, CheckCircleFillIcon } from "@primer/octicons-react";

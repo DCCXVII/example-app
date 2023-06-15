@@ -2,7 +2,8 @@
 import React from "react";
 import { useQuery } from "react-query";
 import CardCourse from "./CardCourse";
-import "./Courses.css";
+import "./style/Courses.css";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { fetchInstructorCoursesData } from "../../../../api/api";
 
 function Courses() {
@@ -12,7 +13,7 @@ function Courses() {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="loading-icon">{AiOutlineLoading3Quarters}</div>;
   }
 
   if (error) {

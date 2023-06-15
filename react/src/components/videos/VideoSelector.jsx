@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PlayIcon, PlusIcon, DashIcon } from "@primer/octicons-react";
-import "./Video.css";
+import "./style/Video.css";
 
 function VideoSelector({
   image,

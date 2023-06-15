@@ -1,19 +1,32 @@
 import React, { useState } from "react";
-import { EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import { EyeClosedIcon, EyeIcon, AlertIcon } from "@primer/octicons-react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import google from "../../assets/google.png";
 import { login, userData } from "../api/api";
 import "./SignIn.css";
 import { useNavigate, Link } from "react-router-dom";
+import {
+  ErrMessage,
+  SuccessMessage,
+  WarningMessage,
+  InfoMessage,
+} from "../messages/Messages"; // Import the message components
+
 const SignIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(true);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      setErrorMessage("Merci de remplir tous les champs.");
+      return;
+    }
 
     setIsLoading(true);
     setIsError(false);
@@ -21,14 +34,17 @@ const SignIn = () => {
     try {
       await login(email, password);
 
-      if (userData.role == "instructor") {
+      if (userData.role === "instructor") {
         navigate("/instructor");
-      } else if (userData.role == "client") {
+      } else if (userData.role === "client") {
         navigate("/user");
       }
     } catch (error) {
       console.error(error);
       setIsError(true);
+      setErrorMessage(
+        "L'email ou le mot de passe que vous avez saisi est incorrect."
+      );
     }
 
     setIsLoading(false);
@@ -48,11 +64,11 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="blank-div"></div>
       <div className="signin-container">
         <h2 id="signin-title">Sign in</h2>
         <br />
         <form onSubmit={handleLogin}>
+          {isError && <ErrMessage message={errorMessage} />} {/* Replace error message */}
           <label>
             E-mail
             <br />
@@ -99,10 +115,12 @@ const SignIn = () => {
             id="signin-button"
             disabled={isLoading}
           >
-            {isLoading ? "Loading..." : "Login"}
+            {isLoading ? (
+              <div className="loading-icon">{AiOutlineLoading3Quarters}</div>
+            ) : (
+              "Login"
+            )}
           </button>
-
-          {isError && <div className="error-message">Login failed</div>}
         </form>
         <br />
         <div className="forget-signup-links">

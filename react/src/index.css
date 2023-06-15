@@ -1,64 +1,138 @@
 /* ! ! ! this file contains the default variable declaration to applicate it,
  just make an importation on the App.js file  ! ! ! */
 
- @import url('https://fonts.googleapis.com/css?family=Montserrat:500');
- @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
- 
- /* Colors */
- :root { 
-     --primary: #000;
-     --charcoal: #242424;
-     --mine: #3b3b3b;
-     --chicago: #636363;
-     --dawn: #a3a3a3;
-     --alto: #ccc;
-     --mercury: #e1e1e1;
-     --smoke: #f2f2f2;
-     --white: #fff;
-     --highlight-light: #f1e8dd;
-     --highlight-main: #ceb18f;
-     --highlight-medium: #ceb18f;
-     --highlight-dark: #826646;
-     --alert-light: #e7cccf;
-     --alert-main: #b00020;
-     --alert-medium: #b00020;
-     --alert-dark: #740031;
-     --success-light: #d8e1d5;
-     --success-main: #ceb18f;
-     --success-medium: #ceb18f;
-     --success-dark: #3c4b37;
-     --accent-light: #d7ddeb;
-     --accent-main: #7183b0;
-     --accent-medium: #7183b0;
-     --accent-dark: #384669;
-     --gray-2-light: #e1e1e1;
-     /* Swiper color */
-     --swiper-theme-color: #007aff;
- }
- 
- /* Typography */
- :root {
-   --first-font: 'Montserrat', sans-serif;
-   --second-font: 'Open Sans', sans-serif;
-   --third-font:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-   Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-   --h1-font-size: 2rem;
-   --h2-font-size: 1.5rem;
-   --h3-font-size: 1rem;
-   --normal-font-size: 0.938rem;
-   --font-conf-size: 18px;
-   --smaller-font-size: 0.75rem;
- }
- 
- /* Other */
- :root {
-   --radius-button: 8px;
-   --radius-small: 2px;
-   --radius-medium: 5px;
-   --radius-large: 10px;
- }
- 
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
- .blank-div{
-  height: 50px;
- }
+/* Colors */
+:root {
+  --primary: #000;
+  --charcoal: #242424;
+  --mine: #3b3b3b;
+  --chicago: #636363;
+  --dawn: #a3a3a3;
+  --alto: #ccc;
+  --mercury: #e1e1e1;
+  --smoke: #f2f2f2;
+  --white: #fff;
+  --highlight-light: #f1e8dd;
+  --highlight-main: #ceb18f;
+  --highlight-medium: #ceb18f;
+  --highlight-dark: #826646;
+  --alert-light: #e7cccf;
+  --alert-main: #b00020;
+  --alert-medium: #b00020;
+  --alert-dark: #740031;
+  --success-light: #d8e1d5;
+  --success-main: #ceb18f;
+  --success-medium: #ceb18f;
+  --success-dark: #3c4b37;
+  --accent-light: #d7ddeb;
+  --accent-main: #7183b0;
+  --accent-medium: #7183b0;
+  --accent-dark: #384669;
+  --gray-2-light: #e1e1e1;
+  /* Swiper color */
+  --swiper-theme-color: #007aff;
+}
+
+/* Typography */
+:root {
+  --first-font: "Montserrat", sans-serif;
+  --second-font: "Open Sans", sans-serif;
+  --third-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --h1-font-size: 2rem;
+  --h2-font-size: 1.5rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: 0.938rem;
+  --font-conf-size: 18px;
+  --smaller-font-size: 0.75rem;
+}
+
+/* Other */
+:root {
+  --radius-button: 8px;
+  --radius-small: 2px;
+  --radius-medium: 5px;
+  --radius-large: 10px;
+}
+
+.error-message {
+  background-color: var(--alert-medium);
+  color: var(--white);
+  padding: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: left;
+  border-radius: 3px;
+  opacity: 0.9;
+  font-family: var(--third-font);
+  margin-bottom: 30px;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  position: absolute;
+}
+
+.success-message {
+  background-color: var(--success-main);
+  align-items: center;
+  text-align: center;
+  width: auto;
+  position: absolute;
+  color: var(--success-light);
+  padding: 14px;
+  margin-top: 10px auto;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border-radius: 3px;
+  opacity: 0.9;
+  font-family: var(--third-font);
+  margin-bottom: 30px;
+}
+
+
+
+.warning-message {
+  background-color: var(--mine);
+  color: var(--smoke);
+  padding: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: left;
+  border-radius: 3px;
+  opacity: 0.9;
+  font-family: var(--third-font);
+  margin-bottom: 30px;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  position: absolute;
+}
+
+.info-message {
+  background-color: var(--accent-dark);
+  color: var(--white);
+  padding: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: left;
+  border-radius: 3px;
+  opacity: 0.9;
+  font-family: var(--third-font);
+  margin-bottom: 30px;
+}
+
+
+.loading-icon {
+  /* Styles for the loading icon container */
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  size: 16px;
+  align-items: center;
+}

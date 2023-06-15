@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./UpdateBackgroundImage.css";
+import "./style/UpdateBackgroundImage.css";
 import { ImageIcon } from "@primer/octicons-react";
 import { changeBackgroundImage } from "../../../../api/api"; // Import the API function for changing the background image
 

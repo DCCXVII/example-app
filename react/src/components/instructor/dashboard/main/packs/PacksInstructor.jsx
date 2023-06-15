@@ -1,9 +1,9 @@
 import React from "react";
-
 import { useQuery } from "react-query";
 import CardPack from "./CardPack";
 import { fetchInstructorPacksData } from "../../../../api/api"; // Replace <path_to_api> with the actual path to the api file
-import "./Packs.css";
+import "./style/Packs.css";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function PacksInstructor() {
 
@@ -14,7 +14,7 @@ function PacksInstructor() {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="loading-icon">{AiOutlineLoading3Quarters}</div>;
   }
 
   if (error) {

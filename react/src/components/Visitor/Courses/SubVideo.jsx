@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { LockIcon, ZapIcon, GlobeIcon, ClockIcon } from "@primer/octicons-react";
-import { useParams } from "react-router-dom";
+import {
+  LockIcon,
+  ZapIcon,
+  GlobeIcon,
+  ClockIcon,
+} from "@primer/octicons-react";
+import { Link, useParams } from "react-router-dom";
 import { fetchCourseDataById } from "../../api/api";
-import "./SubVideo.css";
+import "./style/SubVideo.css";
 import pr1 from "../../../assets/pr1.jpg";
 
 const SubVideo = () => {
@@ -49,25 +54,32 @@ const SubVideo = () => {
               <LockIcon size={34} />
             </div>
             <h1>POUR DÉBLOQUEZ CETTE CLASSE</h1>
-            <a href="">Commencez votre essai gratuit aujourd'hui</a>
+            <Link to="/user/payement">Commencez votre essai gratuit aujourd'hui</Link>
           </div>
         </div>
         <div className="Sub-video-cours-video-info">
           <div className="Sub-video-course-title">
             <h1>{titre}</h1>
-          </div>
-          <div className="Sub-video-descrip-cours">
-            <p className="Sub-video-descrip-cours-paragraph">{description}</p>
-          </div>
-          <div className="cours-video-instru-info">
-            <a href="">
-              <img src={pr1} alt="" />
-              <h2 className="video-instru-name">{instructor_name}</h2>
-            </a>
-            <p className="video-instru-specia">Yoga Instructeur</p>
-            <button className="consultation3-btn3">
-              Prendre consultation
-            </button>
+            <div className="Sub-video-descrip-cours">
+              <p className="Sub-video-descrip-cours-paragraph">{description}</p>
+            </div>
+            <div className="cours-video-instru-info">
+              <div className="cours-video-instru-info-instructor-name">
+                
+                <a href="">
+                  <img src={pr1} alt="" />
+                  <h2 className="video-instru-name">ALLO ALLO</h2>
+                </a>
+              </div>
+              <div className="cours-video-instru-info-instructor-specialty">
+                <p className="video-instru-specia">Yoga Instructeur</p>
+              </div>
+              <div className="cours-video-instru-info-instructor-button">
+                <button className="consultation3-btn3">
+                  Prendre consultation
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div className="apercu-video-page">

@@ -5,7 +5,7 @@ import {
   MdOutlineSignalCellularAlt1Bar,
   MdOutlineSignalCellularAlt2Bar,
 } from "react-icons/all";
-import "./VCourses.css";
+import "./style/VCourses.css";
 import { fetchCourses } from "../../api/api";
 import { useLocation } from "react-router-dom";
 
@@ -20,12 +20,12 @@ const VCourses = () => {
         const newData = courses.map((course) => ({
           id: course.id,
           image: course.background_image,
-          yogaType: course.discipline_id,
+          yogaType: course.discipline_name,
           yogaDuration: course.duration,
           yogaLevel: course.niveau,
           videoTitle: course.titre,
-          videoPlaylist: course.classe_id, // You can replace this with actual playlist data if available
-          videoInstructor: course.instructor_id,
+          videoPlaylist: course.classe_name, // You can replace this with actual playlist data if available
+          videoInstructor: course.instructor_name,
           icon:
             course.niveau === "Débutant" ? (
               <MdOutlineSignalCellularAlt1Bar />

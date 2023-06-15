@@ -1,12 +1,14 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-function Notification({ name, description, time, icon ,flag}) {
-    return (
-      <li>
-        <a href="#">
+function Notification({ name, description, time, icon, flag, link }) {
+  return (
+    <li>
+      <a href={link} target="_blank" rel="noopener noreferrer">
         <div className="container-notification-card">
           <img
-            src="https://res.cloudinary.com/dev-empty/image/upload/v1661230727/rquq94qv4bpuvf7xnxyh.jpg"
+            src="https://d2lesx9toesny3.cloudfront.net/normal_334efd36-2eb0-4c0b-ad68-76dff09cb0fd.jpg"
             alt={name}
             className="img-avatar"
           />
@@ -21,9 +23,9 @@ function Notification({ name, description, time, icon ,flag}) {
             <span className="notification-icon">{icon}</span>
           </div>
         </div>
-        </a>
-      </li>
-    );
-  }
-  
-  export default Notification;
+      </a>
+    </li>
+  );
+}
+
+export default Notification;

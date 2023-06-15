@@ -8,7 +8,6 @@ function GuestLayout() {
   return (
     <>
       <Header />
-      <div className="blank-div"></div>
       <Outlet />
       <Footer />
     </>

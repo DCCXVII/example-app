@@ -1,4 +1,4 @@
-import "../courses/CreateCoursePack.css";
+import "../courses/style/CreateCoursePack.css";
 import { ChevronDownIcon, ChevronRightIcon,XCircleFillIcon, CheckCircleFillIcon } from "@primer/octicons-react";
 import emptyimage from "../../../../../assets/emptyimage.jpg";
 import VideoSelector from "../../../../videos/VideoSelector";

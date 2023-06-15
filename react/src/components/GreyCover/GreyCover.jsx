@@ -1,8 +1,6 @@
 import "./GreyCover.css";
 
 const GreyCover = ({ title, paragraph }) => {
-  
-
   return (
     <>
       <div className="grey-cover-header">

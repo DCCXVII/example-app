@@ -30,7 +30,7 @@ header {
 .Consultation-section-body a:hover,
 .Notification-section-body a:hover,
 .dropdown li a:hover {
-  background-color: #000;
+  background-color: #ccc;
   color: #fff;
 }
 
@@ -38,7 +38,7 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 20px 20px 5px 0;
-  position: fixed;
+  position: relative;
   z-index: 999;
   top: 0;
   width: 100%;

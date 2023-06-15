@@ -1,10 +1,16 @@
 import { useState } from "react";
 import "./SignUp.css";
 import "../../index.css";
-import { CheckCircleFillIcon, CheckCircleIcon } from "@primer/octicons-react";
+import {
+  CheckCircleFillIcon,
+  CheckCircleIcon,
+  AlertIcon,
+} from "@primer/octicons-react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import google from "../../assets/google.png";
 import { signup } from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { ErrMessage } from "../messages/Messages";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -77,32 +83,31 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-  
+
     // Prepare the request body
     const fullName = formData.nom + " " + formData.prenom;
     const { email, password } = formData;
-  
+
     setIsLoading(true);
     setIsError(false);
-  
+
     try {
       // Call the signup function
       const token = await signup(fullName, email, password);
       console.log("Token:", token);
-  
+
       // Display success message or redirect to another page
       setSignupStatus("success");
-      navigate("user/pricing"); // Redirect to the desired page after successful signup
+      navigate("/user"); // Redirect to the desired page after successful signup
     } catch (error) {
       // Display error message or handle the error
       setSignupStatus("error");
       console.error("Signup failed:", error);
       setIsError(true);
     }
-  
+
     setIsLoading(false);
   };
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -174,14 +179,16 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="blank-div"></div>
       <div className="signup-container">
         <h2 id="signup-title">S'INSCRIRE</h2>
         <br />
         <p id="description-1">
-          Il suffit de <span className="span">3 étapes</span> pour démarrer
-          votre essai gratuit. Inscrivez-vous avec votre compte social ou créez
-          un compte avec nous.
+          Découvrez les bienfaits du yoga et{" "}
+          <span className="span">inscrivez-vous</span> dès maintenant pour
+          <span className="span">
+            commencer votre voyage vers l'équilibre et la sérénité intérieure
+          </span>
+          .
         </p>
         <br />
         <button className="button" id="signup-google-button">
@@ -192,6 +199,7 @@ const SignUp = () => {
         <hr className="hr-text" data-content="OU" />
         <br />
         <form method="post" onSubmit={handleSubmit}>
+          {signupStatus === "error" && <ErrMessage message="L'inscription a échoué. Veuillez réessayer."/>}
           {formInputs.map((input) => (
             <div key={input.id} className="signup-input-container">
               <label className="signup-label">
@@ -229,10 +237,12 @@ const SignUp = () => {
             </div>
           </div>
           <button className="button" type="submit" id="signup-submit-button">
-            S'INSCRIRE
+            {isLoading ? (
+              <div className="loading-icon">{AiOutlineLoading3Quarters}</div>
+            ) : (
+              "S'inscrire"
+            )}
           </button>
-          {signupStatus === "success" && <p>Signup successful!</p>}
-          {signupStatus === "error" && <p>Signup failed. Please try again.</p>}
         </form>
       </div>
     </>

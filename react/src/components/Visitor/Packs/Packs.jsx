@@ -2,7 +2,7 @@ import { fetchPacks } from '../../api/api';
 import { useEffect, useState } from 'react';
 import GreyCover from '../../GreyCover/GreyCover';
 import Pack from './Pack';
-import './Packs.css';
+import './style/Packs.css';
 
 const Packs = () => {
   const [packsData, setPacksData] = useState([]);
@@ -26,8 +26,8 @@ const Packs = () => {
         title="Nos Packs"
         paragraph="Élevez votre pratique du yoga avec nos packs axés sur la force et la flexibilité"
       />
-      <div className="big-container-packs">
-        <div className="packs-card-grid">
+      <div className="big-container-classes">
+        <div className="classes-card-grid">
           {packsData.map((video, index) => (
             <Pack
               key={index}
@@ -37,7 +37,7 @@ const Packs = () => {
               yogaLevel={video.niveau}
               videoTitle={video.titre}
               videoPlaylist={video.videoPlaylist}
-              videoInstructor={video.coach_id}
+              videoInstructor={video.coach_name}
               packVideoDescription={video.description || ''} // Provide a default value if packVideoDescription is undefined
               packFeedsClientNumber={video.sells_number}
               packFeedsViewsNumber={video.views_number}

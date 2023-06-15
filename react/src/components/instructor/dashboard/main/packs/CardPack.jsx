@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import {
-    PeopleIcon,
-    KebabHorizontalIcon,
-    PencilIcon,
-    XIcon,
-    PlayIcon,
-    VerifiedIcon,
-    TrophyIcon,
+  PeopleIcon,
+  KebabHorizontalIcon,
+  PencilIcon,
+  XIcon,
+  PlayIcon,
+  VerifiedIcon,
+  TrophyIcon,
 } from "@primer/octicons-react";
-import "./CardPack.css";
+import "./style/CardPack.css";
 const CardPack = ({
   image,
   yogaType,
@@ -58,7 +58,7 @@ const CardPack = ({
                 {videoTitle}
               </a>
             </li>
-            
+
             <li>
               <div className="cp-feeds">
                 <div className="first-line">
@@ -77,13 +77,15 @@ const CardPack = ({
                 </div>
               </div>
             </li>
-            <hr className="cc-feeds-line"/>
+            <hr className="cc-feeds-line" />
             <li>
               <div className="cp-video-description">
                 {expanded
                   ? cpVideoDescription
-                : `${cpVideoDescription.slice(0, 90)}...`}
-                <div className={expanded ? "cp-overlay hidden" : "cp-overlay"}></div>
+                  : `${cpVideoDescription.slice(0, 90)}...`}
+                <div
+                  className={expanded ? "cp-overlay hidden" : "cp-overlay"}
+                ></div>
               </div>
               <button className="read-more-less" onClick={toggleExpanded}>
                 {expanded ? "Read less" : "Read more"}

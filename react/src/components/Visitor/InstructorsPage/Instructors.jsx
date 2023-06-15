@@ -1,11 +1,11 @@
 import React from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "./Instructors.css";
+import "./style/Instructors.css";
 import GreyCover from "../../GreyCover/GreyCover";
 import { token } from "../../api/api";
 import {fetchInstructors} from "../../api/api";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 function Instructors() {
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ function Instructors() {
   } = useQuery("instructors", fetchInstructors);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <div className="loading-icon">{AiOutlineLoading3Quarters}</div>;
   }
 
   if (error) {

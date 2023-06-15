@@ -205,9 +205,9 @@ export const editCourse = async (courseId, courseData) => {
   }
 };
 
-export const fetchCourseData = async (id) => {
+export const fetchCourseData = async (courseId) => {
   try {
-    const response = await api.get(`/instructor/courses/${id}`);
+    const response = await api.get(`/instructor/courses/${courseId}`);
     console.log(response.data);
     return response.data;
   } catch (error) {
@@ -217,10 +217,11 @@ export const fetchCourseData = async (id) => {
 };
 
 
+
 export const fetchCourseDataById = async (id) => {
   try {
     const response = await api.get(`/explore/?id=${id}`);
-    console.log(response.data);
+    console.log("hadi afficher dyal lcourses"+response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch course data:", error);
@@ -354,5 +355,39 @@ export const changeProfileImage = async (imageFile) => {
     throw error;
   }
 };
+
+export const getUserData = async () => {
+  try {
+    const response = await api.get("/profile"); // Replace "/user-data" with the actual endpoint to fetch user data
+    console.log(" l profile howa hada : "+response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch user data:", error.response.data);
+    throw new Error(error.response.data.message);
+  }
+};
+
+
+
+export const becomeInstructor = async (phoneNumber, cvFile) => {
+  try {
+    const formData = new FormData();
+    formData.append("phone_number", phoneNumber);
+    formData.append("cv", cvFile);
+
+    const response = await api.post("/become-instructor", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to submit instructor request:", error);
+    throw error;
+  }
+};
+
 
 export default api;

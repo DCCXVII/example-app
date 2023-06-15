@@ -39,7 +39,6 @@ function InstructorPage() {
 
   return (
     <>
-      <div className="blank-div"></div>
       <NavbarDash links={links} />
       <Outlet />
     </>

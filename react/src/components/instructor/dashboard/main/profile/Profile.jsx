@@ -1,4 +1,4 @@
-import "./Profile.css";
+import "./style/Profile.css";
 import { DeviceCameraIcon, GearIcon } from "@primer/octicons-react";
 import { useState, useEffect } from "react";
 import UpdateProfileImage from "./UpdateProfileImage";
@@ -67,7 +67,6 @@ const Profile = () => {
 
   return (
     <>
-      <div className="blank-div"></div>
       {/* {showOverlay && <div className="overlay" />} */}
       {showOverlay && <UpdateProfileImage onClose={handleCloseOverlay} />}
       {showOverlay && <UpdateBackgroundImage onClose={handleCloseOverlay} />}

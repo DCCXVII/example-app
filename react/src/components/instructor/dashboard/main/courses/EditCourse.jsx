@@ -61,22 +61,20 @@ const EditCourse = () => {
   useEffect(() => {
     fetchCourseData(courseId)
       .then((data) => {
-        setCourseData(data);
-        // Set the existing course data to the corresponding state variables
         setCourseTitle(data.titre);
         setCourseDiscipline(data.discipline_id);
         setTypeClass(data.classe_id);
         setLevel(data.nivaeu);
         setLatestPrice(data.price);
         setShortDescription(data.description);
-        setThumbnailImage(data.thumbnail);
+        setThumbnailImage(data.background_image);
         // Assuming you have a separate field for video file, you can set it here as well
       })
       .catch((error) => {
         console.error("Failed to fetch course data:", error);
       });
   }, [courseId]);
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -90,7 +88,6 @@ const EditCourse = () => {
       background_image: background_image,
       video: video,
     };
-
 
     editCourse(courseId, updatedCourseData)
       .then((data) => {

@@ -33,7 +33,7 @@ function Header(props) {
     <>
       <header className="visitor-header">
         <h2 className="visitor-logo">
-          <Link className="visitor-logo-link" to="/">
+          <Link className="visitor-logo-link" to="">
             Yougik
           </Link>
         </h2>
@@ -81,7 +81,7 @@ function Header(props) {
               </a>
               <ul className="dropdown2">
                 <li>
-                  <Link className="classes-links" to="explore/Classes">
+                  <Link className="classes-links" to="/explore/Courses">
                     Classes
                   </Link>
                 </li>

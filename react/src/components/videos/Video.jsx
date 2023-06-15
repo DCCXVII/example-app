@@ -4,7 +4,7 @@ import {
   TriangleRightIcon,
   PlayIcon,
 } from "@primer/octicons-react";
-import "./Video.css";
+import "./style/Video.css";
 import { BsPeople, BsEye } from "react-icons/bs";
 import { Link } from "react-router-dom";
 

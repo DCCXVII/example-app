@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import "./Video.css";
+import "./style/Video.css";
 const VideoPreview = ({ videoFile }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);

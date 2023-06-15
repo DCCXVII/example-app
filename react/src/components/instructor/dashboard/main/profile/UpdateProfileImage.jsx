@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./UpdateProfileImage.css";
+import "./style/UpdateProfileImage.css";
 import { ImageIcon } from "@primer/octicons-react";
 
 const UpdateProfileImage = ({ onClose }) => {

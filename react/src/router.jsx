@@ -15,7 +15,6 @@ import Signupage from "./pages/Signupage";
 import GuestLayout from "./components/layouts/GuestLayout";
 import SignIn from "./components/SignIn/SignIn";
 import ForgetPasswordForm from "./components/SignIn/ForgetPasswordForm";
-import VideosPage from "./components/videos/VideosPage";
 import VCourses from "./components/Visitor/Courses/VCourses";
 import Pack from "./components/Visitor/Packs/Pack";
 import Packs from "./components/Visitor/Packs/Packs";
@@ -28,6 +27,8 @@ import ChangePassword from "./components/instructor/dashboard/main/profile/Chang
 import EditCourse from "./components/instructor/dashboard/main/courses/EditCourse";
 import SubVideo from "./components/Visitor/Courses/SubVideo";
 import Live from "./components/instructor/dashboard/main/Lives/Live";
+import PaymentForm from "./components/Visitor/payment/paymentForm";
+import BecomeInstructor from "./components/Visitor/Become Instructor/BecomeInstructor";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,6 @@ const router = createBrowserRouter([
         path: "",
         element: <VisitorPage />,
       },
-
       {
         path: "/explore",
         element: "",
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Signupage />,
       },
-      
+
       {
         path: "/reset-password",
         element: <ForgetPasswordForm />,
@@ -141,7 +141,7 @@ const router = createBrowserRouter([
         element: <DefaultPage />,
       },
       {
-        path: "user/pricing",
+        path: "/user/pricing",
         element: <PricingCard />,
       },
       {
@@ -160,14 +160,24 @@ const router = createBrowserRouter([
         path: "/user/instructors/:id",
         element: <InstructorProfile />,
       },
-    
+
       {
         path: "/user/courses/:id",
         element: <SubVideo />,
-      },{
+      },
+      {
         path: "/user/profile",
         element: <ProfileEdit />,
-      }
+      },
+      {
+        path: "/user/payement",
+        element: <PaymentForm />,
+      },
+      ,
+      {
+        path: "/user/become-instructor",
+        element: <BecomeInstructor />,
+      },
     ],
   },
 ]);

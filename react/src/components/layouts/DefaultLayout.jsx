@@ -4,8 +4,7 @@ import Navbar from "../instructor/dashboard/navbar/Navbar";
 import SignIn from "../SignIn/SignIn";
 import Footer from "../Footer/Footer";
 import Slider from "../Visitor/Slider/Slider";
-import { Logout } from "../api/api";
-import { userData } from "../api/api";
+import { Logout, fetchInstructorProfileData } from "../api/api"; // Import getUserData function
 import {
   HomeIcon,
   PlayIcon,
@@ -18,7 +17,10 @@ import {
   GlobeIcon,
   PeopleIcon 
 } from "@primer/octicons-react";
+
 function DefaultLayout() {
+  const userData = fetchInstructorProfileData(); // Function to retrieve user data
+  console.log("data : "+userData)
   const Navlink = [
     {
       icon: <HomeIcon size={22} />,
@@ -27,7 +29,7 @@ function DefaultLayout() {
     }
   ];
 
-  const profile = [
+  const profile = [ // Wrap the object inside an array
     {
       Username: userData.name,
       email: userData.email,
@@ -35,6 +37,7 @@ function DefaultLayout() {
       link: "/user/profile"
     },
   ];
+    
   const dropdownItems = [
     {
       link: "/user/purchase",
@@ -76,7 +79,6 @@ function DefaultLayout() {
         },
         // Add more dropdown items as needed
       ],
-      
     },
     {
       link: "/user/instructors",
@@ -84,14 +86,11 @@ function DefaultLayout() {
       name: "Instructeurs",
     }
     // Add more explore items as needed
-    
-    
   ];
 
   return (
     <>
-      <Navbar items={dropdownItems} profile={profile} Navlink={Navlink} explore={exploreItems}/>
-      <div className="blank-div"></div>
+      <Navbar items={dropdownItems} profile={profile} Navlink={Navlink} explore={exploreItems} home="/user" />
       <Outlet />
       <Footer />
     </>

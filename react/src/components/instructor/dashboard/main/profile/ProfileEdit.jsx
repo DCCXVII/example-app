@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ProfileEdit.css";
+import "./style/ProfileEdit.css";
 import { ChevronRightIcon,CheckCircleFillIcon, XCircleFillIcon } from "@primer/octicons-react";
 import { saveProfile, fetchInstructorProfileData } from "../../../../api/api";
 
@@ -95,7 +95,6 @@ const ProfileEdit = () => {
 
   return (
     <>
-      <div className="blank-div"></div>
       <div className="create-profile-container">
         <div className="container">
           <div className="create-profile-form">

@@ -1,4 +1,4 @@
-// CardCourse.jsx
+// cc : course card
 import React from "react";
 import { Link } from "react-router-dom";
 import {
@@ -9,7 +9,7 @@ import {
   XIcon,
   PlayIcon,
 } from "@primer/octicons-react";
-import "./CardCourse.css";
+import "./style/CardCourse.css";
 
 function CardCourse({
   image,
@@ -20,7 +20,7 @@ function CardCourse({
   videoTitle,
   ccFeedsViewsNumber,
   ccFeedsClientNumber,
-  courseId, // Added courseId prop
+  courseId, 
 }) {
   return (
     <>

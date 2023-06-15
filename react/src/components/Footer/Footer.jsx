@@ -1,5 +1,6 @@
 import React from "react";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 import twitter from "../../assets/twitter.png";
 import facebook from "../../assets/facebook.png";
 import youtube from "../../assets/youtube.png";
@@ -39,6 +40,11 @@ function Footer(props) {
             <a href="" className="footer-links">
               À propos de nous
             </a>
+          </li>
+          <li>
+            <Link to="/user/become-instructor" className="footer-links">
+            devenir instructeur!
+            </Link>
           </li>
         </ul>
         <div className="social-icons">

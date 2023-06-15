@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "./CreateCoursePack.css";
+import "./style/CreateCoursePack.css";
 import { ChevronRightIcon,XCircleFillIcon, CheckCircleFillIcon } from "@primer/octicons-react";
 import emptyimage from "../../../../../assets/emptyimage.jpg";
 import { createCourse } from "../../../../api/api";
-
+import Swal from "sweetalert2";
+import { ErrMessage,SuccessMessage } from "../../../../messages/Messages";
 const CreateCourseForm = () => {
   const [titre, setCourseTitle] = useState("");
   const [discipline_id, setCourseDiscipline] = useState(null);
@@ -13,10 +14,12 @@ const CreateCourseForm = () => {
   const [description, setShortDescription] = useState("");
   const [background_image, setBackgroundImage] = useState(null);
   const [video, setVideoFile] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+
 
   const handleCourseTitleChange = (event) => {
     setCourseTitle(event.target.value);
@@ -74,21 +77,12 @@ const CreateCourseForm = () => {
 
     try {
       const response = await createCourse(courseData);
-      setSuccessMessage("Course created successfully");
-      setShowSuccessMessage(true);
+      setSuccessMessage("La demande a été envoyée avec succès");
+      setShowSuccess(true);
 
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 3000);
       console.log("Response:", response); // Handle the response or perform any necessary actions
     } catch (error) {
-      setErrorMessage("Failed to create course");
-      setShowErrorMessage(true);
-
-      // Hide error message after 7 seconds
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 7000);
+      setMessage("Échec de l'envoi de la demande. Veuillez la renvoyer");
       console.error("Failed to create course:", error);
       // Handle the error, show an error message, etc.
     }
@@ -238,20 +232,12 @@ const CreateCourseForm = () => {
                     Create Course <ChevronRightIcon size={20} />
                   </button>
                 </div>
-                {errorMessage && (
-                  <div className="error-message">
-                    <XCircleFillIcon className="message-icons" size={16} />
-                    {errorMessage}
-                  </div>
-                )}
-                {successMessage && (
-                  <div className="success-message">
-                    <CheckCircleFillIcon className="message-icons" size={16} />{" "}
-                    {successMessage}
-                  </div>
-                )}
               </div>
+              {message && <ErrMessage message={message} />}
+              {/* Success message */}
+              {showSuccess && <SuccessMessage message={successMessage} />}
             </form>
+            
           </div>
         </div>
       </div>
