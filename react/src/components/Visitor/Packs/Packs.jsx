@@ -37,7 +37,7 @@ const Packs = () => {
               yogaLevel={video.niveau}
               videoTitle={video.titre}
               videoPlaylist={video.videoPlaylist}
-              videoInstructor={video.coach_name}
+              videoInstructor={video.instructor_name}
               packVideoDescription={video.description || ''} // Provide a default value if packVideoDescription is undefined
               packFeedsClientNumber={video.sells_number}
               packFeedsViewsNumber={video.views_number}
